@@ -130,6 +130,7 @@ export default class ProductScreen1 extends Component{
                 onPress={this.ChangeGridValueFunction} >
                 <Icon name={`ios-${this.state.ButtonDefaultText}`}/>
                 </TouchableOpacity>
+                
           </View> 
           <View style={{flex:9,paddingLeft:4,paddingRight:4}}>
             <ScrollView

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'react-native-axios';
 import qs from 'query-string';
 import { CameraRoll,TextInput,Vibration,StyleSheet,Dimensions,StatusBar,TouchableHighlight,TouchableOpacity , View,ScrollView,RefreshControl, Platform, Text, FlatList, Alert, ActivityIndicator, Image } from 'react-native';
-import {Body,Container,Left,Header,Right,Content,Card,CardItem,Thumbnail,Button,Fab,Icon,Form, Item, Input, Label } from 'native-base';
+import {Body,Toast,Container,Left,Header,Right,Content,Card,CardItem,Thumbnail,Button,Fab,Icon,Form, Item, Input, Label } from 'native-base';
 import { RNCamera ,Camera, FaceDetector } from 'react-native-camera';
 import ImagePicker from 'react-native-image-picker';
 
@@ -17,6 +17,7 @@ const options={
   }
 };
 
+
 export default class CameraScreen extends Component {
   constructor(props){
     super(props);
@@ -25,6 +26,8 @@ export default class CameraScreen extends Component {
       uriFile:null,
       fileName:'',
       loading:false,
+      showToast: false,
+
       id_produk:'',
       nm_produk:'',
       warna_produk:'',
@@ -40,6 +43,9 @@ export default class CameraScreen extends Component {
       ket_produk:'',
     }
   }
+  static navigationOptions = {
+    title: 'Add Data',
+  };
 
 myfunc=()=>{
   // alert('clik');
@@ -47,9 +53,9 @@ myfunc=()=>{
         console.log('Response = ', response);
       
         if (response.didCancel) {
-          console.warn('User cancelled image picker');
+          console.log('User cancelled image picker');
         } else if (response.error) {
-          console.warn('ImagePicker Error: ', response.error);
+          console.log('ImagePicker Error: ', response.error);
         } 
         // else if (response.customButton) {
         //   console.log('User tapped custom button: ', response.customButton);
@@ -58,7 +64,7 @@ myfunc=()=>{
           // const source = { uri: response.uri };
           // You can also display the image using data:
           const source = { uri: 'data:image/jpeg;base64,' + response.data }; 
-          console.warn(response.fileName);
+          // console.warn(`${response.latitude} and`)
           this.setState({
             avatarSource: {uri:response.uri},
             uriFile:response.uri,
@@ -76,7 +82,7 @@ makeid(){
 };
 
 doUpload=()=>{
-  console.warn('loading');
+  // console.warn('loading');
   this.setState({loading:true});
 
         const url='http://149.129.214.176/barcode/tambahProductSample.php';
@@ -105,7 +111,11 @@ doUpload=()=>{
               .then((ResponseJson)=>{
                     console.warn(ResponseJson);
                     this.setState({loading:false})
+                    Toast.show({text: 'Wrong password!',buttonText: 'Okay'})
               })
+              .catch(function (error) {
+                console.log(error);
+              });
 }
 
 doUpload22=()=> {
@@ -171,48 +181,61 @@ uploadData =()=> {
             console.log(error)
         })   
 };
-
+testToast=()=>{
+  Toast.show({text: 'Wrong password!',buttonText: 'Okay'});
+}
 
   render(){
     return(
-      <View style={styles.container}>
-      <Text>Welcome</Text>
-    
-      <Image source={this.state.avatarSource}
-      style={{width:200,height:200,margin:10}}/>
+      <View style={{flex:1,flexDirection:'column',backgroundColor:'#fff',padding:4}}>
+        <View style={{flex:1}}>
+                
+                <Label style={{textAlign:'center'}}>ADD DATA</Label>
+                
+                <Item fixedLabel>
+                        <TextInput
+                        style={{height: 40}}
+                        placeholder="Number ID"
+                        value={this.state.inputan}
+                        onChangeText={(text) => this.setState({id_produk: text})}
+                      />
+                </Item>
+                      <Item fixedLabel last>
+                        <TextInput
+                        style={{height: 40}}
+                        placeholder="Name"
+                        value={this.state.inputan}
+                        onChangeText={(text) => this.setState({nm_produk: text})}
+                      />
+                </Item>
+            <TouchableOpacity style={{backgroundColor:'#30a854',borderRadius:8,width:115,margin:10,padding:10}}
+            onPress={this.myfunc}
+            >
+            <Text style={{color:'#fff', alignItems:'center'}}>Select Image</Text>
+            </TouchableOpacity>
+      </View>
+      <View style={{flex:1}}>
+              <Image source={this.state.avatarSource}
+              style={{width:'90%',height:'90%',margin:10}}/>
 
-      <Form>
-      <Item fixedLabel>
-              <TextInput
-              style={{height: 40}}
-              placeholder="Id"
-              value={this.state.inputan}
-              onChangeText={(text) => this.setState({id_produk: text})}
-            />
-      </Item>
-            <Item fixedLabel last>
-              <TextInput
-              style={{height: 40}}
-              placeholder="Name"
-              value={this.state.inputan}
-              onChangeText={(text) => this.setState({nm_produk: text})}
-            />
-      </Item>
-    </Form>
+      </View>
+      <View style={{flex:1,padding:6}}>
+      <Button onPress={() => Toast.show({
+        text: 'Discard changes',
+        buttonText: 'Undo',
+        duration: 3000
+      })}><Text>Toast</Text></Button>
+              {
+                (this.state.avatarSource) &&
+                  <TouchableOpacity style={styles.btnsave}
+                  onPress={this.doUpload}
+                  >
+                  <Label style={{textAlign:'center',color:'#fff'}}>Save Data</Label>
+                  </TouchableOpacity>
+              }
+      </View>
 
-
-      <TouchableOpacity style={{backgroundColor:'green',margin:10,padding:10}}
-      onPress={this.myfunc}
-      >
-      <Text>Select image</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={{backgroundColor:'green',margin:10,padding:10}}
-      onPress={this.doUpload}
-      >
-      <Text>UPLOAD</Text>
-      </TouchableOpacity>
-
+      
       </View>
     )
   }
@@ -251,5 +274,13 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: '600',
     fontSize: 17,
+  },
+  btnsave: {
+    position:'absolute',
+    bottom: 0,
+    height:45,
+    backgroundColor:'#e80b0b',
+    justifyContent:'center',
+    width: '100%'
   }
 });

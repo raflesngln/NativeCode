@@ -14,6 +14,7 @@ import DetailProductScreen from './DetailProductScreen';
           isLoading:true,
           dataApi:[],
           refreshing: false,
+          nama:'rafles'
           };
   };
     static navigationOptions = {
@@ -31,7 +32,12 @@ import DetailProductScreen from './DetailProductScreen';
   gotoCamera=()=>{
     this.props.navigation.navigate('CameraGet');
   }
-  
+  toCamera=()=>{
+    this.setState({nama:'nainggolan'});
+    // console.warn('telah ubah jadi '+this.state.nama);
+    // this.props.navigation.navigate('CameraGet');
+  }
+
 
     render() {
               // TAB DATA
@@ -40,6 +46,8 @@ import DetailProductScreen from './DetailProductScreen';
                       <View style={{flex:1}}>
                           <ProductScreen1 changetoCamera={this.toCamera}/>
                           <View>
+
+                          
                           <Fab
                             active={this.state.active}
                             direction="up"
