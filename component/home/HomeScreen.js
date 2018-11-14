@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'react-native-axios';
 import {NavigatorIOS,ScrollView,RefreshControl,StyleSheet, Text, View,ActivityIndicator,Modal,TouchableHighlight, Alert} from 'react-native';
 import { Container,Spinner,Fab ,Tab,Item,Input,Form,Label, Tabs, ScrollableTab,Body, Header,Left,Title,Button,Right, Content, Footer, FooterTab, Icon } from 'native-base';
-import ProductScreen1 from './../home/ProductScreen1';
+import ProductScreen1 from './ProductScreen1';
 import DetailProductScreen from './DetailProductScreen';
 
 
@@ -24,10 +24,14 @@ import DetailProductScreen from './DetailProductScreen';
         isLoading:false
       });
   };
+  
+  gotoBarcode=()=>{
+    this.props.navigation.navigate('BarcodeGet');
+  }
   gotoCamera=()=>{
     this.props.navigation.navigate('CameraGet');
   }
-
+  
 
     render() {
               // TAB DATA
@@ -42,9 +46,19 @@ import DetailProductScreen from './DetailProductScreen';
                             containerStyle={{ }}
                             style={{ backgroundColor: '#d8024d' }}
                             position="bottomRight"
-                            onPress={this.gotoCamera}>
-                            <Icon name="ios-camera" />
+                            onPress={this.gotoBarcode}>
+                            <Icon name="ios-barcode" />
                           </Fab>
+                        </View>
+                        <View>
+                              <Fab
+                              direction="up"
+                              containerStyle={{bottom:80}}
+                              style={{ backgroundColor: '#143e87' }}
+                              position="bottomRight"
+                              onPress={this.gotoCamera}>
+                              <Icon name="ios-camera" />
+                            </Fab>
                         </View>
                       </View>
                       );

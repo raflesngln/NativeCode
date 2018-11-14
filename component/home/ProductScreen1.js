@@ -40,7 +40,10 @@ export default class ProductScreen1 extends Component{
     componentDidMount() {
       this.getData();
     }
-
+    componentWillMount() {
+        this.getData();
+    
+    }
     ChangeGridValueFunction =()=> {
         if(this.state.GridColumnsValue === true)
         {
@@ -59,7 +62,7 @@ export default class ProductScreen1 extends Component{
 
   GetGridViewItem=(item)=>{
         // Alert.alert(item);
-        this.props.navigation.navigate('CameraGet');
+        this.props.navigation.navigate('BarcodeGet');
     }
   
   loadDetail=(item)=>{
@@ -67,6 +70,7 @@ export default class ProductScreen1 extends Component{
     }
   
   getData(){
+      this.state.dataApi=[];
       return axios.get('http://149.129.214.176/barcode/tampilProduct.php')
       // .then(response => response.json())
         .then(responseJson => {
@@ -85,8 +89,8 @@ export default class ProductScreen1 extends Component{
           console.log(responseJson);
         })
         .catch(function (error) {
-        console.log(error);
-        })
+        console.warn(error);
+        });
     };
   _onRefresh = () => {
       this.setState({dataApi:[],refreshing: true});
@@ -96,7 +100,7 @@ export default class ProductScreen1 extends Component{
       alert('hello wolrd');
     }
     gotoCamera=()=>{
-      // this.props.navigation.navigate('CameraGet');
+      // this.props.navigation.navigate('BarcodeGet');
       this.props.changetoCamera();
     }
     _toggleModal = item =>{
@@ -167,7 +171,9 @@ export default class ProductScreen1 extends Component{
           animationOutTiming={1000}
           backdropTransitionInTiming={1000}
           backdropTransitionOutTiming={1000}
+          onSwipe={() => this.setState({ modalVisible: false })}
           swipeDirection="right"
+          onBackButtonPress={() => this.setState({ modalVisible: false })}
     >
 
 

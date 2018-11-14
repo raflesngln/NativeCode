@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { Container, Header,Left,Button,Right,Body,Title, Content, Footer,Item,Input, FooterTab, Icon } from 'native-base';
-import { createStackNavigator, createSwitchNavigator,createBottomTabNavigator } from 'react-navigation';
+import {ActivityIndicator, AsyncStorage,StatusBar,StyleSheet,Text,View} from 'react-native';
+import {Container, Header,Left,Button,Right,Body,Title, Content, Footer,Item,Input, FooterTab, Icon } from 'native-base';
+import {createStackNavigator, createSwitchNavigator,createBottomTabNavigator } from 'react-navigation';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
-import HomeScreen from './../component/home/HomeScreen';
+import HomeScreen from '../component/home/HomeScreen';
 import MySetting from './../component/akun/SettingsScreen';
+import BarcodeScreen from '../component/home/BarcodeScreen';
+import CameraScreen from '../component/home/CameraScreen';
 
 class OtherScreen extends React.Component {
   static navigationOptions = {
@@ -85,31 +80,7 @@ class TransacScreen extends React.Component {
     );
   }
 }
-class CameraScreen extends Component {
-  constructor(props) {
-    super(props);
-  };
-  static navigationOptions = {
-    title: 'Camera Action',
-  };
-  
-  toPasswordSet = () => {
-    this.props.navigation.navigate('PasswordSetting');
-  };
-  
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button  onPress={this.toPasswordSet}>
-<Text>Password Settings</Text>
-        </Button>
-        <StatusBar barStyle="default" />
-        <Text>CameraGet</Text>
-        <Text>CameraGetCameraGetCameraGet</Text>
-      </View>
-    );
-  }
-}
+
 
 const LogoTitle=()=>{
   return(
@@ -191,6 +162,7 @@ class AuthLoadingScreen extends React.Component {
     // Home: HomeScreen,
     HomeNav: { screen: HomeScreen },
     OtherNav: { screen: OtherScreen },
+    BarcodeGet: { screen: BarcodeScreen },
     CameraGet: { screen: CameraScreen },
   });
   const AuthStack = createStackNavigator(
@@ -263,7 +235,7 @@ const RootNavigasi=createSwitchNavigator(
     App: ButtonTabNavigator,
     SignUp:SignUpScreen,
     Auth: AuthStack,
-    goCamera: { screen: CameraScreen },
+    goBarcode: { screen: BarcodeScreen },
     PasswordSetting: PasswordScreen,
   },
   {
