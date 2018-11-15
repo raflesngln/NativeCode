@@ -8,6 +8,7 @@ import HomeScreen from '../component/home/HomeScreen';
 import MySetting from './../component/akun/SettingsScreen';
 import BarcodeScreen from '../component/home/BarcodeScreen';
 import CameraScreen from '../component/home/CameraScreen';
+import WhislistScreen from '../component/whislist/WhislistScreen';
 
 class OtherScreen extends React.Component {
   static navigationOptions = {
@@ -27,24 +28,7 @@ class OtherScreen extends React.Component {
 
 
 }
-class WhislistScreen extends React.Component {
-  static navigationOptions = {
-    title: 'WhislistScreen',
-  };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button  onPress={()=>alert('helo')}>
-<Text>I'm done, sign me out</Text>
-        </Button>
-        <StatusBar barStyle="default" />
-        <Text>WhislistScreen</Text>
-      </View>
-    );
-  }
-
-}
 class CartScreen extends React.Component {
   static navigationOptions = {
     title: 'CartScreen',
