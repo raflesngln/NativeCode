@@ -5,6 +5,10 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import io.realm.react.RealmReactPackage;
 import com.imagepicker.ImagePickerPackage;
+import com.chrisbianca.cameraroll.RNCameraRollPackage;
+import org.reactnative.camera.RNCameraPackage;
+import io.realm.react.RealmReactPackage;
+import com.imagepicker.ImagePickerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -28,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RealmReactPackage(),
             new ImagePickerPackage(),
+            new RNCameraRollPackage(),
             new RNCameraPackage()
       );
     }

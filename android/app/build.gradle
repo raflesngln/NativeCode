@@ -137,6 +137,10 @@ android {
 }
 
 dependencies {
+    compile project(':realm')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-cameraroll')
+    compile project(':react-native-camera')
     implementation project(':realm')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-camera')
